@@ -18,32 +18,37 @@ class SiriService {
     
     init() {
         requestAuthorization()
-        getShortcuts()
+//        getShortcuts()
     }
     
     func requestAuthorization() {
         INPreferences.requestSiriAuthorization({status in
             // Handle errors here
-        })
-    }
-    
-    func getShortcuts() {
-        center.getAllVoiceShortcuts(completion: { (shortcuts, error) in
-            if let error = error {
-                print("Error getting shortcuts: \(error)")
-            } else if let shortcuts = shortcuts {
-                self.shortcuts.append(contentsOf: shortcuts)
-                shortcuts.forEach { shortcut in
-                    print("invocationPhrase: \(shortcut.invocationPhrase)")
-                    print("shortcut.description: \(shortcut.shortcut.description)")
-                    print("description: \(shortcut.description)")
-                    print("shortcut.shortcut.intent: \(shortcut.shortcut.intent)")
+            if status == .authorized {
+                print("Authorized")
+                Task {
+                    await self.getShortcuts()
                 }
             }
         })
     }
     
-    func handleShortcut(shortcut: INVoiceShortcut) {
-        shortcut.invocationPhrase
+    func getShortcuts() async {
+        do {
+            let shortcuts = try await center.allVoiceShortcuts()
+            self.shortcuts.append(contentsOf: shortcuts)
+            shortcuts.forEach { shortcut in
+                print("invocationPhrase: \(shortcut.invocationPhrase)")
+                print("shortcut.description: \(shortcut.shortcut.description)")
+                print("description: \(shortcut.description)")
+                print("shortcut.shortcut.intent: \(shortcut.shortcut.intent)")
+            }
+        } catch let error {
+            print("Error getting shortcuts: \(error)")
+        }
     }
+    
+    
 }
+
+
