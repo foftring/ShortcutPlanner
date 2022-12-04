@@ -11,6 +11,7 @@ import Combine
 class HomeViewModel: ObservableObject {
     @Published var offset: CGSize = .zero
     @Published var cards: [Card] = []
+    let sirService = SiriService.shared
     var cancellables = Set<AnyCancellable>()
     
     init() {

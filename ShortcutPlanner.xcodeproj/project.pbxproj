@@ -13,6 +13,7 @@
 		014B1745293C0E2F00BEE8B1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 014B1744293C0E2F00BEE8B1 /* Preview Assets.xcassets */; };
 		014B174D293C1CF900BEE8B1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014B174C293C1CF900BEE8B1 /* HomeViewModel.swift */; };
 		014B1750293C1D2300BEE8B1 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014B174F293C1D2300BEE8B1 /* CardView.swift */; };
+		014B1753293C1D8600BEE8B1 /* SiriService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014B1752293C1D8600BEE8B1 /* SiriService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,8 @@
 		014B1744293C0E2F00BEE8B1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		014B174C293C1CF900BEE8B1 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		014B174F293C1D2300BEE8B1 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		014B1752293C1D8600BEE8B1 /* SiriService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiriService.swift; sourceTree = "<group>"; };
+		014B1754293C211100BEE8B1 /* ShortcutPlanner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShortcutPlanner.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +58,9 @@
 		014B173C293C0E2D00BEE8B1 /* ShortcutPlanner */ = {
 			isa = PBXGroup;
 			children = (
+				014B1754293C211100BEE8B1 /* ShortcutPlanner.entitlements */,
 				014B173D293C0E2D00BEE8B1 /* ShortcutPlannerApp.swift */,
+				014B1751293C1D7600BEE8B1 /* Services */,
 				014B174B293C1CC100BEE8B1 /* HomeView */,
 				014B174E293C1D1300BEE8B1 /* ViewComponents */,
 				014B1741293C0E2F00BEE8B1 /* Assets.xcassets */,
@@ -87,6 +92,14 @@
 				014B174F293C1D2300BEE8B1 /* CardView.swift */,
 			);
 			path = ViewComponents;
+			sourceTree = "<group>";
+		};
+		014B1751293C1D7600BEE8B1 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				014B1752293C1D8600BEE8B1 /* SiriService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,6 +175,7 @@
 				014B1740293C0E2D00BEE8B1 /* HomeView.swift in Sources */,
 				014B174D293C1CF900BEE8B1 /* HomeViewModel.swift in Sources */,
 				014B1750293C1D2300BEE8B1 /* CardView.swift in Sources */,
+				014B1753293C1D8600BEE8B1 /* SiriService.swift in Sources */,
 				014B173E293C0E2D00BEE8B1 /* ShortcutPlannerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -288,17 +302,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ShortcutPlanner/ShortcutPlanner.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ShortcutPlanner/Preview Content\"";
 				DEVELOPMENT_TEAM = L997WUKPVM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSSiriUsageDescription = "This app need Siri to access and run Shortcuts";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -317,17 +334,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ShortcutPlanner/ShortcutPlanner.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ShortcutPlanner/Preview Content\"";
 				DEVELOPMENT_TEAM = L997WUKPVM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSSiriUsageDescription = "This app need Siri to access and run Shortcuts";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
