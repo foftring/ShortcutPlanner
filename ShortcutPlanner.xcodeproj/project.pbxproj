@@ -8,17 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		014B173E293C0E2D00BEE8B1 /* ShortcutPlannerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014B173D293C0E2D00BEE8B1 /* ShortcutPlannerApp.swift */; };
-		014B1740293C0E2D00BEE8B1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014B173F293C0E2D00BEE8B1 /* ContentView.swift */; };
+		014B1740293C0E2D00BEE8B1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014B173F293C0E2D00BEE8B1 /* HomeView.swift */; };
 		014B1742293C0E2F00BEE8B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 014B1741293C0E2F00BEE8B1 /* Assets.xcassets */; };
 		014B1745293C0E2F00BEE8B1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 014B1744293C0E2F00BEE8B1 /* Preview Assets.xcassets */; };
+		014B174D293C1CF900BEE8B1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014B174C293C1CF900BEE8B1 /* HomeViewModel.swift */; };
+		014B1750293C1D2300BEE8B1 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014B174F293C1D2300BEE8B1 /* CardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		014B173A293C0E2D00BEE8B1 /* ShortcutPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShortcutPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		014B173D293C0E2D00BEE8B1 /* ShortcutPlannerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutPlannerApp.swift; sourceTree = "<group>"; };
-		014B173F293C0E2D00BEE8B1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		014B173F293C0E2D00BEE8B1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		014B1741293C0E2F00BEE8B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		014B1744293C0E2F00BEE8B1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		014B174C293C1CF900BEE8B1 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		014B174F293C1D2300BEE8B1 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +56,8 @@
 			isa = PBXGroup;
 			children = (
 				014B173D293C0E2D00BEE8B1 /* ShortcutPlannerApp.swift */,
-				014B173F293C0E2D00BEE8B1 /* ContentView.swift */,
+				014B174B293C1CC100BEE8B1 /* HomeView */,
+				014B174E293C1D1300BEE8B1 /* ViewComponents */,
 				014B1741293C0E2F00BEE8B1 /* Assets.xcassets */,
 				014B1743293C0E2F00BEE8B1 /* Preview Content */,
 			);
@@ -65,6 +70,23 @@
 				014B1744293C0E2F00BEE8B1 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		014B174B293C1CC100BEE8B1 /* HomeView */ = {
+			isa = PBXGroup;
+			children = (
+				014B173F293C0E2D00BEE8B1 /* HomeView.swift */,
+				014B174C293C1CF900BEE8B1 /* HomeViewModel.swift */,
+			);
+			path = HomeView;
+			sourceTree = "<group>";
+		};
+		014B174E293C1D1300BEE8B1 /* ViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				014B174F293C1D2300BEE8B1 /* CardView.swift */,
+			);
+			path = ViewComponents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,7 +159,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				014B1740293C0E2D00BEE8B1 /* ContentView.swift in Sources */,
+				014B1740293C0E2D00BEE8B1 /* HomeView.swift in Sources */,
+				014B174D293C1CF900BEE8B1 /* HomeViewModel.swift in Sources */,
+				014B1750293C1D2300BEE8B1 /* CardView.swift in Sources */,
 				014B173E293C0E2D00BEE8B1 /* ShortcutPlannerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

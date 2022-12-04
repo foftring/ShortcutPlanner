@@ -8,65 +8,15 @@
 import SwiftUI
 import Combine
 
-struct CardView: View {
-    
-    @Binding var offset: CGSize
-    let card: String
-    var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 10)
-                .fill(Color.white)
-                .frame(width: 300, height: 200)
-                .shadow(color: Color.gray.opacity(0.2), radius: 10, x: 0, y: 20)
-                .shadow(color: Color.gray.opacity(0.7), radius: 10, x: 0, y: 5)
-            
-            Text(card)
-        }
-        .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0))
-        .offset(x: offset.width, y: offset.height)
-    }
-}
-
-class ViewModel: ObservableObject {
-    @Published var offset: CGSize = .zero
-    @Published var cards: [Card] = []
-    var cancellables = Set<AnyCancellable>()
-    
-    init() {
-        getCards()
-        addSubscribers()
-    }
-    
-    func getCards() {
-        for index in 0..<10 {
-            cards.append(Card(title: "Card: #\(index)"))
-        }
-    }
-    
-    func addSubscribers() {
-        $offset
-            .sink { offest in
-                print("Offset -- \(offest)")
-            }
-            .store(in: &cancellables)
-    }
-    
-    func removeCard(card: Card) {
-        if let index = cards.firstIndex(where: { $0.title == card.title }) {
-            cards.remove(at: index)
-        }
-    }
-}
-
-struct ContentView: View {
-    @StateObject var viewModel = ViewModel()
+struct HomeView: View {
+    @StateObject var viewModel = HomeViewModel()
     @State var background: Color = .clear
     
     var body: some View {
         ZStack {
             background
             ForEach(viewModel.cards) { card in
-                CardView(offset: $viewModel.offset, card: card.title)
+                CardView(offset: $viewModel.offset, card: card)
                     .gesture(DragGesture()
                         .onChanged { gesture in
                             // Update the position of the top CardView
@@ -112,6 +62,6 @@ struct Card: Identifiable {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        HomeView()
     }
 }

@@ -11,7 +11,7 @@ import SwiftUI
 struct ShortcutPlannerApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
         }
     }
 }
