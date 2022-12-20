@@ -17,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		011DCDA22951433A00D17C01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		014B173A293C0E2D00BEE8B1 /* ShortcutPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShortcutPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		014B173D293C0E2D00BEE8B1 /* ShortcutPlannerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutPlannerApp.swift; sourceTree = "<group>"; };
 		014B173F293C0E2D00BEE8B1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -58,6 +59,7 @@
 		014B173C293C0E2D00BEE8B1 /* ShortcutPlanner */ = {
 			isa = PBXGroup;
 			children = (
+				011DCDA22951433A00D17C01 /* Info.plist */,
 				014B1754293C211100BEE8B1 /* ShortcutPlanner.entitlements */,
 				014B173D293C0E2D00BEE8B1 /* ShortcutPlannerApp.swift */,
 				014B1751293C1D7600BEE8B1 /* Services */,
@@ -309,6 +311,7 @@
 				DEVELOPMENT_TEAM = L997WUKPVM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShortcutPlanner/Info.plist;
 				INFOPLIST_KEY_NSSiriUsageDescription = "This app need Siri to access and run Shortcuts";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -341,6 +344,7 @@
 				DEVELOPMENT_TEAM = L997WUKPVM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShortcutPlanner/Info.plist;
 				INFOPLIST_KEY_NSSiriUsageDescription = "This app need Siri to access and run Shortcuts";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

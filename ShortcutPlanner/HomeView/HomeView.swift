@@ -13,42 +13,41 @@ struct HomeView: View {
     @State var background: Color = .clear
     
     var body: some View {
-        ZStack {
-            background
-            ForEach(viewModel.cards) { card in
-                CardView(offset: $viewModel.offset, card: card)
-                    .gesture(DragGesture()
-                        .onChanged { gesture in
-                            // Update the position of the top CardView
-                            viewModel.offset = gesture.translation
-                            if gesture.translation.width < -100 { background = .red }
-                            else if gesture.translation.width > 100 { background = .green }
-                            else {
-                                background = .clear
+            ZStack {
+                background
+                ForEach(viewModel.cards) { card in
+                    CardView(offset: $viewModel.offset, card: card)
+                        .gesture(DragGesture()
+                            .onChanged { gesture in
+                                // Update the position of the top CardView
+                                viewModel.offset = gesture.translation
+                                if gesture.translation.width < -100 { background = .red }
+                                else if gesture.translation.width > 100 { background = .green }
+                                else { background = .clear }
+                                
                             }
-                            
-                        }
-                        .onEnded { gesture in
-                            if gesture.translation.width < -100 {
-                                // Handle swipe left gesture
-                                viewModel.removeCard(card: card)
-                                print("Removing Card! -100")
-                                viewModel.offset = .zero
-                                background = .clear
-                            } else if gesture.translation.width > 100 {
-                                // Handle swipe right gesture
-                                viewModel.removeCard(card: card)
-                                print("Removing Card! +100")
-                                viewModel.offset = .zero
-                                background = .clear
-                            } else {
-                                viewModel.offset = .zero
-                                background = .clear
+                            .onEnded { gesture in
+                                if gesture.translation.width < -100 {
+                                    // Handle swipe left gesture
+                                    viewModel.removeCard(card: card)
+                                    print("Removing Card! -100")
+                                    viewModel.offset = .zero
+                                    background = .clear
+                                } else if gesture.translation.width > 100 {
+                                    // Handle swipe right gesture
+                                    viewModel.removeCard(card: card)
+                                    print("Removing Card! +100")
+                                    viewModel.offset = .zero
+                                    background = .clear
+                                    viewModel.runShortcut(card)
+                                } else {
+                                    viewModel.offset = .zero
+                                    background = .clear
+                                }
                             }
-                        }
-                    )
+                        )
+                }
             }
-        }
     }
 }
 
