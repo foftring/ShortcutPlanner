@@ -52,7 +52,7 @@ struct HomeView: View {
             }
             .toolbar {
                 NavigationLink {
-                    Text("Change Card Order View!")
+                    ScheduleView(cards: $viewModel.cards)
                 } label: {
                     Image(systemName: "menucard.fill")
                 }
@@ -64,7 +64,7 @@ struct HomeView: View {
 
 
 
-struct Card: Identifiable {
+struct Card: Identifiable, Equatable {
     let title: String
     let id = UUID()
 }

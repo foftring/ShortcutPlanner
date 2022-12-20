@@ -14,6 +14,8 @@
 		014B174D293C1CF900BEE8B1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014B174C293C1CF900BEE8B1 /* HomeViewModel.swift */; };
 		014B1750293C1D2300BEE8B1 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014B174F293C1D2300BEE8B1 /* CardView.swift */; };
 		014B1753293C1D8600BEE8B1 /* SiriService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014B1752293C1D8600BEE8B1 /* SiriService.swift */; };
+		01F4AF73295253A800FF4619 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4AF72295253A800FF4619 /* ScheduleView.swift */; };
+		01F4AF76295253F100FF4619 /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4AF75295253F100FF4619 /* PreviewProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		014B174F293C1D2300BEE8B1 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		014B1752293C1D8600BEE8B1 /* SiriService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiriService.swift; sourceTree = "<group>"; };
 		014B1754293C211100BEE8B1 /* ShortcutPlanner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShortcutPlanner.entitlements; sourceTree = "<group>"; };
+		01F4AF72295253A800FF4619 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
+		01F4AF75295253F100FF4619 /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,8 @@
 		014B173C293C0E2D00BEE8B1 /* ShortcutPlanner */ = {
 			isa = PBXGroup;
 			children = (
+				01F4AF74295253E300FF4619 /* Extensions */,
+				01F4AF712952539700FF4619 /* ScheduleView */,
 				011DCDA22951433A00D17C01 /* Info.plist */,
 				014B1754293C211100BEE8B1 /* ShortcutPlanner.entitlements */,
 				014B173D293C0E2D00BEE8B1 /* ShortcutPlannerApp.swift */,
@@ -102,6 +108,22 @@
 				014B1752293C1D8600BEE8B1 /* SiriService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		01F4AF712952539700FF4619 /* ScheduleView */ = {
+			isa = PBXGroup;
+			children = (
+				01F4AF72295253A800FF4619 /* ScheduleView.swift */,
+			);
+			path = ScheduleView;
+			sourceTree = "<group>";
+		};
+		01F4AF74295253E300FF4619 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				01F4AF75295253F100FF4619 /* PreviewProvider.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,6 +201,8 @@
 				014B1750293C1D2300BEE8B1 /* CardView.swift in Sources */,
 				014B1753293C1D8600BEE8B1 /* SiriService.swift in Sources */,
 				014B173E293C0E2D00BEE8B1 /* ShortcutPlannerApp.swift in Sources */,
+				01F4AF76295253F100FF4619 /* PreviewProvider.swift in Sources */,
+				01F4AF73295253A800FF4619 /* ScheduleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
