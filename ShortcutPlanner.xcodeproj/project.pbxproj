@@ -16,6 +16,8 @@
 		014B1753293C1D8600BEE8B1 /* SiriService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014B1752293C1D8600BEE8B1 /* SiriService.swift */; };
 		01F4AF73295253A800FF4619 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4AF72295253A800FF4619 /* ScheduleView.swift */; };
 		01F4AF76295253F100FF4619 /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4AF75295253F100FF4619 /* PreviewProvider.swift */; };
+		01F4AF78295264CE00FF4619 /* TabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4AF77295264CE00FF4619 /* TabController.swift */; };
+		01F4AF7C2952664100FF4619 /* ImportShortcutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4AF7B2952664100FF4619 /* ImportShortcutsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,8 @@
 		014B1754293C211100BEE8B1 /* ShortcutPlanner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShortcutPlanner.entitlements; sourceTree = "<group>"; };
 		01F4AF72295253A800FF4619 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		01F4AF75295253F100FF4619 /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
+		01F4AF77295264CE00FF4619 /* TabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabController.swift; sourceTree = "<group>"; };
+		01F4AF7B2952664100FF4619 /* ImportShortcutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportShortcutsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,14 +67,14 @@
 		014B173C293C0E2D00BEE8B1 /* ShortcutPlanner */ = {
 			isa = PBXGroup;
 			children = (
-				01F4AF74295253E300FF4619 /* Extensions */,
-				01F4AF712952539700FF4619 /* ScheduleView */,
 				011DCDA22951433A00D17C01 /* Info.plist */,
 				014B1754293C211100BEE8B1 /* ShortcutPlanner.entitlements */,
 				014B173D293C0E2D00BEE8B1 /* ShortcutPlannerApp.swift */,
-				014B1751293C1D7600BEE8B1 /* Services */,
-				014B174B293C1CC100BEE8B1 /* HomeView */,
+				01F4AF77295264CE00FF4619 /* TabController.swift */,
+				01F4AF792952661700FF4619 /* Views */,
 				014B174E293C1D1300BEE8B1 /* ViewComponents */,
+				014B1751293C1D7600BEE8B1 /* Services */,
+				01F4AF74295253E300FF4619 /* Extensions */,
 				014B1741293C0E2F00BEE8B1 /* Assets.xcassets */,
 				014B1743293C0E2F00BEE8B1 /* Preview Content */,
 			);
@@ -124,6 +128,24 @@
 				01F4AF75295253F100FF4619 /* PreviewProvider.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		01F4AF792952661700FF4619 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				01F4AF7A2952662E00FF4619 /* SettingsView */,
+				014B174B293C1CC100BEE8B1 /* HomeView */,
+				01F4AF712952539700FF4619 /* ScheduleView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		01F4AF7A2952662E00FF4619 /* SettingsView */ = {
+			isa = PBXGroup;
+			children = (
+				01F4AF7B2952664100FF4619 /* ImportShortcutsView.swift */,
+			);
+			path = SettingsView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,12 +219,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				014B1740293C0E2D00BEE8B1 /* HomeView.swift in Sources */,
+				01F4AF78295264CE00FF4619 /* TabController.swift in Sources */,
 				014B174D293C1CF900BEE8B1 /* HomeViewModel.swift in Sources */,
 				014B1750293C1D2300BEE8B1 /* CardView.swift in Sources */,
 				014B1753293C1D8600BEE8B1 /* SiriService.swift in Sources */,
 				014B173E293C0E2D00BEE8B1 /* ShortcutPlannerApp.swift in Sources */,
 				01F4AF76295253F100FF4619 /* PreviewProvider.swift in Sources */,
 				01F4AF73295253A800FF4619 /* ScheduleView.swift in Sources */,
+				01F4AF7C2952664100FF4619 /* ImportShortcutsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
