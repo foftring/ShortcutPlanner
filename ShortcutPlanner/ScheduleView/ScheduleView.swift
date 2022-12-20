@@ -26,6 +26,8 @@ struct ScheduleView: View {
                     }
                 }
             }
+            .listSectionSeparator(.hidden)
+            .listRowSeparator(.hidden)
             .environment(\.editMode, isEditable ? .constant(.active) : .constant(.inactive))
         }
 
@@ -37,59 +39,31 @@ struct ScheduleView: View {
         }
 }
 
-struct DragRelocateDelegate: DropDelegate {
-    let item: Card
-    @Binding var listData: [Card]
-    @Binding var current: Card?
-
-    func dropEntered(info: DropInfo) {
-        if item != current {
-            let from = listData.firstIndex(of: current!)!
-            let to = listData.firstIndex(of: item)!
-            if listData[to].id != current!.id {
-                listData.move(fromOffsets: IndexSet(integer: from),
-                    toOffset: to > from ? to + 1 : to)
-            }
-        }
-    }
-
-    func dropUpdated(info: DropInfo) -> DropProposal? {
-        return DropProposal(operation: .move)
-    }
-
-    func performDrop(info: DropInfo) -> Bool {
-        self.current = nil
-        return true
-    }
-}
-
-//MARK: - GridItem
-
-struct GridItemView: View {
-    var card: Card
-
-    var body: some View {
-        VStack {
-            Text(card.title)
-                .font(.headline)
-                .foregroundColor(.white)
-        }
-        .frame(width: 160, height: 240)
-        .background(Color.green)
-    }
-}
-
-struct DropOutsideDelegate: DropDelegate {
-    @Binding var current: Card?
-        
-    func performDrop(info: DropInfo) -> Bool {
-        current = nil
-        return true
-    }
-}
-
 struct ScheduleView_Previews: PreviewProvider {
     static var previews: some View {
         ScheduleView(cards: .constant(dev.cards))
+    }
+}
+
+struct ListRow: View {
+    let card: Card
+    let index: Int?
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color.white)
+                .frame(height: 50)
+                .shadow(color: Color.gray.opacity(0.2), radius: 10, x: 0, y: 20)
+                .shadow(color: Color.gray.opacity(0.7), radius: 10, x: 0, y: 5)
+                .padding()
+            
+            Text(card.title)
+        }
+    }
+}
+
+struct ListRow_Previews: PreviewProvider {
+    static var previews: some View {
+        ListRow(card: Card(title: "Example Shortcut"), index: 2)
     }
 }

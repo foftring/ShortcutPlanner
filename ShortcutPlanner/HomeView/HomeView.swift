@@ -16,6 +16,7 @@ struct HomeView: View {
         NavigationView {
             ZStack {
                     background
+                    .edgesIgnoringSafeArea(.all)
                     ForEach(viewModel.cards) { card in
                         CardView(offset: $viewModel.offset, card: card)
                             .gesture(DragGesture()
@@ -48,13 +49,16 @@ struct HomeView: View {
                                 }
                             )
                     }
-                    .navigationTitle("Today")
+                    .navigationTitle("My Shortcuts")
             }
             .toolbar {
                 NavigationLink {
                     ScheduleView(cards: $viewModel.cards)
                 } label: {
                     Image(systemName: "menucard.fill")
+                        .renderingMode(.original)
+                        .tint(.primary)
+//                        .tint(.red)
                 }
 
             }
