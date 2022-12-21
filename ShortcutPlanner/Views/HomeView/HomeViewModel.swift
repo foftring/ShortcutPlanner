@@ -13,33 +13,34 @@ class HomeViewModel: ObservableObject {
     @Published var cards: [Card] = []
     let sirService = SiriService.shared
     var cancellables = Set<AnyCancellable>()
-    let myShortcuts: [String] = [
-        "Play Castro",
-        "Skip this episode",
-        "Get My Shortcuts",
-        "Turn On Overhead Lights",
-        "Go To Sleep",
-        "Morning Hydration",
-        "Add an Espresso",
-        "Add A Cold Brew",
-        "Post Workout",
-        "Add Green Tea",
-        "Add A Large Coffee",
-        "Add A Medium Coffee",
-        "Add A Large Cold Brew",
-        "Add A Protein Shake",
-        "Sweetgreen Order",
-        "Chipotle Order"
-    ]
+    @Published var shortcuts: [String] = []
+    let dataStore = ShortcutStore.shared
+    /*
+     "Play Castro",
+     "Skip this episode",
+     "Get My Shortcuts",
+     "Turn On Overhead Lights",
+     "Go To Sleep",
+     "Morning Hydration",
+     "Add an Espresso",
+     "Add A Cold Brew",
+     "Post Workout",
+     "Add Green Tea",
+     "Add A Large Coffee",
+     "Add A Medium Coffee",
+     "Add A Large Cold Brew",
+     "Add A Protein Shake",
+     "Sweetgreen Order",
+     "Chipotle Order"
+     */
     
     init() {
-        getCards()
         addSubscribers()
     }
     
     func getCards() {
-        for index in 0..<10 {
-            let shortcut = myShortcuts[index]
+        for index in 0..<shortcuts.count {
+            let shortcut = shortcuts[index]
             cards.append(Card(title: shortcut))
             print("appending shortcut \(shortcut)")
         }
@@ -49,6 +50,15 @@ class HomeViewModel: ObservableObject {
         $offset
             .sink { offest in
                 print("Offset -- \(offest)")
+            }
+            .store(in: &cancellables)
+        
+        dataStore.$shortcuts
+            .receive(on: DispatchQueue.main)
+            .sink { shortcuts in
+                print("Updating shortcuts!! \(shortcuts)")
+                self.shortcuts = shortcuts
+                self.getCards()
             }
             .store(in: &cancellables)
     }

@@ -8,10 +8,17 @@
 import SwiftUI
 
 struct TabController: View {
+    
+    @State var shortcuts: [String] = []
+    @State var selction: Int = 1
+    let dataStore = ShortcutStore.shared
+    
+    
     var body: some View {
-        TabView {
+        TabView(selection: $selction) {
             
             HomeView()
+                .tag(1)
                 .tabItem {
                     Text("Schedule")
                         .accentColor(.red)
@@ -19,9 +26,10 @@ struct TabController: View {
                         .renderingMode(.original)
                 }
             
-            Text("AnotherView!!")
+            SettingsView(selection: $selction)
+                .tag(2)
                 .tabItem {
-                    Text("Second View")
+                    Text("Settings")
                     Image(systemName: "gear.circle.fill")
                         .renderingMode(.original)
                 }
