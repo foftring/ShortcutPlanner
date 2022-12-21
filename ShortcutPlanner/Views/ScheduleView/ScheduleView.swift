@@ -12,11 +12,11 @@ import UniformTypeIdentifiers
 
 struct ScheduleView: View {
     @State private var isEditable = false
-    @Binding var cards: [Card]
+    @Binding var shortcuts: [Shortcut]
 
         var body: some View {
             List {
-                ForEach(cards) { card in
+                ForEach(shortcuts) { card in
                     Text(card.title)
                 }
                 .onMove(perform: move)
@@ -32,7 +32,7 @@ struct ScheduleView: View {
         }
 
         func move(from source: IndexSet, to destination: Int) {
-            cards.move(fromOffsets: source, toOffset: destination)
+            shortcuts.move(fromOffsets: source, toOffset: destination)
             withAnimation {
                 isEditable = false
             }
@@ -41,12 +41,12 @@ struct ScheduleView: View {
 
 struct ScheduleView_Previews: PreviewProvider {
     static var previews: some View {
-        ScheduleView(cards: .constant(dev.cards))
+        ScheduleView(shortcuts: .constant(dev.shortcuts))
     }
 }
 
 struct ListRow: View {
-    let card: Card
+    let shortcut: Shortcut
     let index: Int?
     var body: some View {
         ZStack {
@@ -57,13 +57,13 @@ struct ListRow: View {
                 .shadow(color: Color.gray.opacity(0.7), radius: 10, x: 0, y: 5)
                 .padding()
             
-            Text(card.title)
+            Text(shortcut.title)
         }
     }
 }
 
 struct ListRow_Previews: PreviewProvider {
     static var previews: some View {
-        ListRow(card: Card(title: "Example Shortcut"), index: 2)
+        ListRow(shortcut: Shortcut(title: "Example Shortcut"), index: 2)
     }
 }

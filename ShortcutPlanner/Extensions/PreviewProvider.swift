@@ -14,7 +14,7 @@ extension PreviewProvider {
 }
 
 class DeveloperPreview {
-    @Published var cards: [Card] = []
+    @Published var shortcuts: [Shortcut] = []
     static let instance = DeveloperPreview()
     
     init() {
@@ -43,7 +43,7 @@ class DeveloperPreview {
     func getCards() {
             for index in 0..<10 {
                 let shortcut = myShortcuts[index]
-                cards.append(Card(title: shortcut))
+                shortcuts.append(Shortcut(title: shortcut))
                 print("appending shortcut \(shortcut)")
             }
         }

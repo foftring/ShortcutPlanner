@@ -16,6 +16,9 @@
 		014B1753293C1D8600BEE8B1 /* SiriService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014B1752293C1D8600BEE8B1 /* SiriService.swift */; };
 		0166D66729528345009CEA04 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0166D66629528345009CEA04 /* SettingsView.swift */; };
 		0166D669295288B0009CEA04 /* ShortcutStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0166D668295288B0009CEA04 /* ShortcutStore.swift */; };
+		01CB56D72953A79D00B2560C /* ShortcutPlanner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01CB56D52953A79D00B2560C /* ShortcutPlanner.xcdatamodeld */; };
+		01CB56D92953A80900B2560C /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CB56D82953A80900B2560C /* CoreDataService.swift */; };
+		01CB56DC2953A85C00B2560C /* Shortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CB56DB2953A85C00B2560C /* Shortcut.swift */; };
 		01F4AF73295253A800FF4619 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4AF72295253A800FF4619 /* ScheduleView.swift */; };
 		01F4AF76295253F100FF4619 /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4AF75295253F100FF4619 /* PreviewProvider.swift */; };
 		01F4AF78295264CE00FF4619 /* TabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4AF77295264CE00FF4619 /* TabController.swift */; };
@@ -35,6 +38,9 @@
 		014B1754293C211100BEE8B1 /* ShortcutPlanner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShortcutPlanner.entitlements; sourceTree = "<group>"; };
 		0166D66629528345009CEA04 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		0166D668295288B0009CEA04 /* ShortcutStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutStore.swift; sourceTree = "<group>"; };
+		01CB56D62953A79D00B2560C /* Shortcut.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shortcut.xcdatamodel; sourceTree = "<group>"; };
+		01CB56D82953A80900B2560C /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
+		01CB56DB2953A85C00B2560C /* Shortcut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcut.swift; sourceTree = "<group>"; };
 		01F4AF72295253A800FF4619 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		01F4AF75295253F100FF4619 /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
 		01F4AF77295264CE00FF4619 /* TabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabController.swift; sourceTree = "<group>"; };
@@ -77,6 +83,7 @@
 				01F4AF77295264CE00FF4619 /* TabController.swift */,
 				01F4AF792952661700FF4619 /* Views */,
 				014B174E293C1D1300BEE8B1 /* ViewComponents */,
+				01CB56DA2953A85100B2560C /* Models */,
 				014B1751293C1D7600BEE8B1 /* Services */,
 				01F4AF74295253E300FF4619 /* Extensions */,
 				014B1741293C0E2F00BEE8B1 /* Assets.xcassets */,
@@ -115,8 +122,18 @@
 			children = (
 				014B1752293C1D8600BEE8B1 /* SiriService.swift */,
 				0166D668295288B0009CEA04 /* ShortcutStore.swift */,
+				01CB56D82953A80900B2560C /* CoreDataService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		01CB56DA2953A85100B2560C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				01CB56D52953A79D00B2560C /* ShortcutPlanner.xcdatamodeld */,
+				01CB56DB2953A85C00B2560C /* Shortcut.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		01F4AF712952539700FF4619 /* ScheduleView */ = {
@@ -225,10 +242,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				014B1740293C0E2D00BEE8B1 /* HomeView.swift in Sources */,
+				01CB56D92953A80900B2560C /* CoreDataService.swift in Sources */,
 				01F4AF78295264CE00FF4619 /* TabController.swift in Sources */,
+				01CB56DC2953A85C00B2560C /* Shortcut.swift in Sources */,
 				014B174D293C1CF900BEE8B1 /* HomeViewModel.swift in Sources */,
 				014B1750293C1D2300BEE8B1 /* CardView.swift in Sources */,
 				014B1753293C1D8600BEE8B1 /* SiriService.swift in Sources */,
+				01CB56D72953A79D00B2560C /* ShortcutPlanner.xcdatamodeld in Sources */,
 				0166D66729528345009CEA04 /* SettingsView.swift in Sources */,
 				014B173E293C0E2D00BEE8B1 /* ShortcutPlannerApp.swift in Sources */,
 				01F4AF76295253F100FF4619 /* PreviewProvider.swift in Sources */,
@@ -443,6 +463,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		01CB56D52953A79D00B2560C /* ShortcutPlanner.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				01CB56D62953A79D00B2560C /* Shortcut.xcdatamodel */,
+			);
+			currentVersion = 01CB56D62953A79D00B2560C /* Shortcut.xcdatamodel */;
+			path = ShortcutPlanner.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 014B1732293C0E2D00BEE8B1 /* Project object */;
 }

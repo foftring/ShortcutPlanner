@@ -10,10 +10,9 @@ import Combine
 
 class HomeViewModel: ObservableObject {
     @Published var offset: CGSize = .zero
-    @Published var cards: [Card] = []
+    @Published var shortcuts: [Shortcut] = []
     let sirService = SiriService.shared
     var cancellables = Set<AnyCancellable>()
-    @Published var shortcuts: [String] = []
     let dataStore = ShortcutStore.shared
     /*
      "Play Castro",
@@ -38,14 +37,6 @@ class HomeViewModel: ObservableObject {
         addSubscribers()
     }
     
-    func getCards() {
-        for index in 0..<shortcuts.count {
-            let shortcut = shortcuts[index]
-            cards.append(Card(title: shortcut))
-            print("appending shortcut \(shortcut)")
-        }
-    }
-    
     func addSubscribers() {
         $offset
             .sink { offest in
@@ -58,17 +49,16 @@ class HomeViewModel: ObservableObject {
             .sink { shortcuts in
                 print("Updating shortcuts!! \(shortcuts)")
                 self.shortcuts = shortcuts
-                self.getCards()
             }
             .store(in: &cancellables)
     }
     
-    func runShortcut(_ card: Card) {
+    func runShortcut(_ shortcut: Shortcut) {
         /*
          let shortcut = URL(string: "shortcuts://x-callback-url/run-shortcut?name=Take%20Picture&x-success=myapp://")!
          UIApplication.shared.open(shortcut, options: [:], completionHandler: nil)
          */
-        guard let escapedString = card.title.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
+        guard let escapedString = shortcut.title.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
             print("error escaping string")
             return
         }
@@ -82,9 +72,9 @@ class HomeViewModel: ObservableObject {
         
     }
     
-    func removeCard(card: Card) {
-        if let index = cards.firstIndex(where: { $0.title == card.title }) {
-            cards.remove(at: index)
+    func removeCard(shortcut: Shortcut) {
+        if let index = shortcuts.firstIndex(where: { $0.title == shortcut.title }) {
+            shortcuts.remove(at: index)
         }
     }
 }

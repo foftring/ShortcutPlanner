@@ -12,5 +12,5 @@ class ShortcutStore: ObservableObject {
     
     private init() { }
     
-    @Published var shortcuts: [String] = []
+    @Published var shortcuts: [Shortcut] = []
 }

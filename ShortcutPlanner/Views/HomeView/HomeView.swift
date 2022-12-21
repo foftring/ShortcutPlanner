@@ -17,8 +17,8 @@ struct HomeView: View {
             ZStack {
                     background
                     .edgesIgnoringSafeArea(.all)
-                    ForEach(viewModel.cards) { card in
-                        CardView(offset: $viewModel.offset, card: card)
+                    ForEach(viewModel.shortcuts) { shortcut in
+                        CardView(offset: $viewModel.offset, shortcut: shortcut)
                             .gesture(DragGesture()
                                 .onChanged { gesture in
                                     // Update the position of the top CardView
@@ -31,17 +31,17 @@ struct HomeView: View {
                                 .onEnded { gesture in
                                     if gesture.translation.width < -100 {
                                         // Handle swipe left gesture
-                                        viewModel.removeCard(card: card)
+                                        viewModel.removeCard(shortcut: shortcut)
                                         print("Removing Card! -100")
                                         viewModel.offset = .zero
                                         background = .clear
                                     } else if gesture.translation.width > 100 {
                                         // Handle swipe right gesture
-                                        viewModel.removeCard(card: card)
+                                        viewModel.removeCard(shortcut: shortcut)
                                         print("Removing Card! +100")
                                         viewModel.offset = .zero
                                         background = .clear
-                                        viewModel.runShortcut(card)
+                                        viewModel.runShortcut(shortcut)
                                     } else {
                                         viewModel.offset = .zero
                                         background = .clear
@@ -53,7 +53,7 @@ struct HomeView: View {
             }
             .toolbar {
                 NavigationLink {
-                    ScheduleView(cards: $viewModel.cards)
+                    ScheduleView(shortcuts: $viewModel.shortcuts)
                 } label: {
                     Image(systemName: "menucard.fill")
                         .renderingMode(.original)
@@ -64,13 +64,6 @@ struct HomeView: View {
             }
         }
     }
-}
-
-
-
-struct Card: Identifiable, Equatable {
-    let title: String
-    let id = UUID()
 }
 
 

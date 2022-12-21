@@ -25,22 +25,14 @@ struct SettingsView: View {
                 TextEditor(text: $textEditText)
                     .frame(height: 350)
             }
-            .toolbar {
-                Button {
-                    
-                } label: {
-                    
-                }
-
-            }
         }
     }
     
     func parseShortcuts() {
         let parsedString = textEditText.split(whereSeparator: \.isNewline)
-        let mapped = parsedString.map { String($0 )}
-        print("mapped shortcuts: \(mapped)")
-        dataStore.shortcuts = mapped
+        let shortcuts = parsedString.map { Shortcut(title: String($0)) }
+        print("mapped shortcuts: \(shortcuts)")
+        dataStore.shortcuts = shortcuts
         selection = 1
     }
 }
