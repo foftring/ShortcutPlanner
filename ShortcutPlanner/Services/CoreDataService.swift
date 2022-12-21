@@ -15,7 +15,7 @@ class CoreDataService: ObservableObject {
     private let entityName: String = "ShortcutEntity"
     
     @Published var savedStats: [ShortcutEntity] = []
-//    static let shared = HealthStatDataService()
+    static let shared = CoreDataService()
     
     private init() {
         print("Init from CoreDataService")

@@ -33,6 +33,9 @@ struct SettingsView: View {
         let shortcuts = parsedString.map { Shortcut(title: String($0)) }
         print("mapped shortcuts: \(shortcuts)")
         dataStore.shortcuts = shortcuts
+        for shortcut in shortcuts {
+            dataStore.updateShortcut(shortcut: shortcut)
+        }
         selection = 1
     }
 }
