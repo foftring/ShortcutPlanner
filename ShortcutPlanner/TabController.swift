@@ -35,7 +35,7 @@ struct TabController: View {
                 }
             
         }
-        .tint(.red)
+        .tint(.primary)
     }
 }
 

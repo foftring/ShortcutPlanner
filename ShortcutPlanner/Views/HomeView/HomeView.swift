@@ -64,6 +64,7 @@ struct HomeView: View {
                     viewModel.resetAppValuesIfNewDay()
                 } label: {
                     Text("Reset")
+                        .foregroundColor(.primary)
                 }
 
             }
