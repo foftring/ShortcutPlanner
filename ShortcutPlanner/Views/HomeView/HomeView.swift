@@ -58,9 +58,17 @@ struct HomeView: View {
                     Image(systemName: "menucard.fill")
                         .renderingMode(.original)
                         .tint(.primary)
-//                        .tint(.red)
+                }
+                
+                Button {
+                    viewModel.resetAppValuesIfNewDay()
+                } label: {
+                    Text("Reset")
                 }
 
+            }
+            .onAppear {
+                viewModel.resetAppValuesIfNewDay()
             }
         }
     }

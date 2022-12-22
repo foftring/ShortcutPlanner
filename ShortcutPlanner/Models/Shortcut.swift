@@ -6,8 +6,19 @@
 //
 
 import Foundation
-struct Shortcut: Identifiable, Equatable {
+class Shortcut: Identifiable, Equatable {
     let id = UUID()
     let title: String
-    var isComplete: Bool = false
+    var isComplete: Bool
+    
+    init(title: String, isComplete: Bool = false) {
+        self.title = title
+        self.isComplete = isComplete
+    }
+}
+
+extension Shortcut {
+    static func == (lhs: Shortcut, rhs: Shortcut) -> Bool {
+        lhs.id == rhs.id
+    }
 }

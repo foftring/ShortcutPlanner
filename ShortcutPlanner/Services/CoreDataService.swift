@@ -28,17 +28,17 @@ class CoreDataService: ObservableObject {
         }
     }
     
-//    func updateStats(healthStat: HealthStat, isEnabled: Bool, goalAmount: Double? = nil) {
-//        print("Enabled: \(isEnabled)")
-//
-//        //check if stat is already saved
-//        if let entity = savedStats.first(where: { $0.title == healthStat.title }) {
-//            update(entity: entity, isEnabled: isEnabled, goalAmount: goalAmount)
-//        } else {
-//            add(healthStat: healthStat, isEnabled: isEnabled)
-//        }
-//    }
-//
+    func updateStats(shortcut: Shortcut, isComplete: Bool) {
+        print("Enabled: \(isComplete)")
+
+        //check if stat is already saved
+        if let entity = savedStats.first(where: { $0.title == shortcut.title }) {
+            update(entity: entity, isComplete: isComplete)
+        } else {
+            add(shortcut: shortcut)
+        }
+    }
+
     func getHealthStats() {
         let request = NSFetchRequest<ShortcutEntity>(entityName: entityName)
         do {
@@ -52,6 +52,7 @@ class CoreDataService: ObservableObject {
         let entity = ShortcutEntity(context: container.viewContext)
         entity.title = shortcut.title
         entity.id = shortcut.id
+        entity.isComplete = false
         applyChanges()
     }
 

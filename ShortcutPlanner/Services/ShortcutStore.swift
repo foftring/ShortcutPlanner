@@ -8,26 +8,35 @@ import Combine
 import Foundation
 class ShortcutStore: ObservableObject {
     
+    @Published var shortcuts: [Shortcut] = []
     static let shared = ShortcutStore()
-    let coreDataStore = CoreDataService.shared
+    private let coreDataStore = CoreDataService.shared
     private var cancellables = Set<AnyCancellable>()
     
     private init() {
         addSubscribers()
     }
     
-    @Published var shortcuts: [Shortcut] = []
-    
-    func addSubscribers() {
+    private func addSubscribers() {
         coreDataStore.$savedStats
             .receive(on: DispatchQueue.main)
             .sink { shortcutEntities in
-                self.shortcuts = shortcutEntities.map({ Shortcut(title: $0.title ?? "") })
+                print("subscription updated!")
+                let mappedShortcuts = shortcutEntities.map({ Shortcut(title: $0.title ?? "", isComplete: $0.isComplete) })
+                self.shortcuts = mappedShortcuts.filter { !$0.isComplete }
+                print("incompleteShortcuts from dataStore: \(self.shortcuts.count)")
             }
             .store(in: &cancellables)
     }
     
     func updateShortcut(shortcut: Shortcut) {
-        coreDataStore.add(shortcut: shortcut)
+        coreDataStore.updateStats(shortcut: shortcut, isComplete: true)
+    }
+    
+    func resetShortcuts() {
+        shortcuts.forEach({
+            $0.isComplete = false
+            print("Changing complete for \($0) -- isComplete: \($0.isComplete)")
+        })
     }
 }

@@ -32,9 +32,8 @@ struct SettingsView: View {
         let parsedString = textEditText.split(whereSeparator: \.isNewline)
         let shortcuts = parsedString.map { Shortcut(title: String($0)) }
         print("mapped shortcuts: \(shortcuts)")
-        dataStore.shortcuts = shortcuts
         for shortcut in shortcuts {
-            dataStore.updateShortcut(shortcut: shortcut)
+            CoreDataService.shared.add(shortcut: shortcut)
         }
         selection = 1
     }
