@@ -24,11 +24,11 @@ class CoreDataService: ObservableObject {
             if let error = error {
                 print("Errors loading core data!: \(error)")
             }
-            self.getHealthStats()
+            self.getShortcuts()
         }
     }
     
-    func updateStats(shortcut: Shortcut, isComplete: Bool) {
+    func updateShortcut(shortcut: Shortcut, isComplete: Bool) {
         print("Enabled: \(isComplete)")
 
         //check if stat is already saved
@@ -39,7 +39,7 @@ class CoreDataService: ObservableObject {
         }
     }
 
-    func getHealthStats() {
+    func getShortcuts() {
         let request = NSFetchRequest<ShortcutEntity>(entityName: entityName)
         do {
             savedStats = try container.viewContext.fetch(request)
@@ -91,7 +91,7 @@ class CoreDataService: ObservableObject {
 
     func applyChanges() {
         save()
-        getHealthStats()
+        getShortcuts()
     }
     
 }

@@ -13,11 +13,24 @@ import UniformTypeIdentifiers
 struct ScheduleView: View {
     @State private var isEditable = false
     @Binding var shortcuts: [Shortcut]
+    @ObservedObject var viewModel: HomeViewModel
 
         var body: some View {
             List {
-                ForEach(shortcuts) { card in
-                    Text(card.title)
+                ForEach(shortcuts) { shortcut in
+                    HStack {
+                        Text(shortcut.title)
+                            .foregroundColor(shortcut.isComplete ? .secondary : .primary)
+                            .strikethrough(shortcut.isComplete)
+                        Spacer()
+                        if shortcut.isComplete {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(.green)
+                        }
+                    }
+                    .onTapGesture {
+                        viewModel.updateShortcut(shortcut)
+                    }
                 }
                 .onMove(perform: move)
                 .onLongPressGesture {
@@ -41,7 +54,7 @@ struct ScheduleView: View {
 
 struct ScheduleView_Previews: PreviewProvider {
     static var previews: some View {
-        ScheduleView(shortcuts: .constant(dev.shortcuts))
+        ScheduleView(shortcuts: .constant(dev.shortcuts), viewModel: HomeViewModel())
     }
 }
 

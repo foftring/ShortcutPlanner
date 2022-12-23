@@ -14,19 +14,20 @@ struct HomeView: View {
     @StateObject var viewModel = HomeViewModel()
     @State var background: Color = .clear
     @State private var showSafari: Bool = false
+    let test: [Int] = []
     
     var body: some View {
         NavigationView {
             ZStack {
                 
-                if !viewModel.hasImportedShortcuts {
+                if viewModel.shortcuts.isEmpty {
                     SwipeBotButton(text: "Tap to import shortcuts", foregroundColor: .primary, fillColor: .green)
                         .onTapGesture {
                             showSafari = true
                         }
                 }
                 
-                else if viewModel.shortcuts.isEmpty {
+                 else if viewModel.isFinished {
                     VStack(spacing: 20) {
                         Text("No messages found")
                             .font(.title)
@@ -37,7 +38,7 @@ struct HomeView: View {
                 }
                 background
                     .edgesIgnoringSafeArea(.all)
-                ForEach(viewModel.shortcuts) { shortcut in
+                ForEach(viewModel.shortcuts.filter({ !$0.isComplete })) { shortcut in
                     CardView(offset: $viewModel.offset, shortcut: shortcut)
                         .gesture(DragGesture()
                             .onChanged { gesture in
@@ -51,13 +52,13 @@ struct HomeView: View {
                             .onEnded { gesture in
                                 if gesture.translation.width < -100 {
                                     // Handle swipe left gesture
-                                    viewModel.removeCard(shortcut: shortcut)
+                                    viewModel.updateShortcut(shortcut)
                                     print("Removing Card! -100")
                                     viewModel.offset = .zero
                                     background = .clear
                                 } else if gesture.translation.width > 100 {
                                     // Handle swipe right gesture
-                                    viewModel.removeCard(shortcut: shortcut)
+                                    viewModel.updateShortcut(shortcut)
                                     print("Removing Card! +100")
                                     viewModel.offset = .zero
                                     background = .clear
@@ -73,7 +74,7 @@ struct HomeView: View {
             }
             .toolbar {
                 NavigationLink {
-                    ScheduleView(shortcuts: $viewModel.shortcuts)
+                    ScheduleView(shortcuts: $viewModel.shortcuts, viewModel: viewModel)
                 } label: {
                     Image(systemName: "menucard.fill")
                         .renderingMode(.original)
@@ -110,16 +111,13 @@ struct SwipeBotButton: View {
     let fillColor: Color
     
     var body: some View {
-        Text(text.uppercased())
+        Text(text)
             .foregroundColor(foregroundColor)
             .padding()
             .frame(minWidth: 147, minHeight: 52)
             .background(
-                RoundedRectangle(
-                    cornerRadius: 34,
-                    style: .continuous
-                )
-                .fill(fillColor)
+                RoundedRectangle(cornerRadius: 34, style: .continuous)
+                    .fill(fillColor)
             )
     }
 }

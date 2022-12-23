@@ -12,6 +12,7 @@ class HomeViewModel: ObservableObject {
     @Published var offset: CGSize = .zero
     @Published var shortcuts: [Shortcut] = []
     @Published var hasImportedShortcuts: Bool = false
+    @Published var isFinished: Bool = false
     private let sirService = SiriService.shared
     private let dataStore = ShortcutStore.shared
     private let coreDataService = CoreDataService.shared
@@ -27,6 +28,11 @@ class HomeViewModel: ObservableObject {
             .sink { shortcuts in
                 print("Updating shortcuts!! \(shortcuts) -- shortcutsCount from vM: \(shortcuts.count) -- uncompleted \(shortcuts.filter({!$0.isComplete}).count)")
                 self.shortcuts = shortcuts
+                if shortcuts.allSatisfy({ $0.isComplete }) {
+                    self.isFinished = true
+                } else {
+                    self.isFinished = false
+                }
             }
             .store(in: &cancellables)
         
@@ -59,13 +65,7 @@ class HomeViewModel: ObservableObject {
     }
     
     func removeCard(shortcut: Shortcut) {
-//        if let index = shortcuts.firstIndex(where: { $0.title == shortcut.title }) {
-//            var shortcutToRemove = shortcuts[index]
-//            shortcutToRemove.isComplete = true
-//
-//            shortcuts.remove(at: index)
-//        }
-        dataStore.updateShortcut(shortcut: shortcut)
+        shortcut.isComplete.toggle()
     }
     
     func resetAppValuesIfNewDay() {
@@ -93,6 +93,11 @@ class HomeViewModel: ObservableObject {
     
     func resetCoreData() {
         coreDataService.deleteAllData()
+    }
+    
+    func updateShortcut(_ shortcut: Shortcut) {
+        shortcut.isComplete.toggle()
+        dataStore.updateShortcut(shortcut: shortcut)
     }
     
 

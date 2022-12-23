@@ -23,14 +23,14 @@ class ShortcutStore: ObservableObject {
             .sink { shortcutEntities in
                 print("subscription updated!")
                 let mappedShortcuts = shortcutEntities.map({ Shortcut(id: $0.id ?? UUID(), title: $0.title ?? "", isComplete: $0.isComplete) })
-                self.shortcuts = mappedShortcuts.filter { !$0.isComplete }
+                self.shortcuts = mappedShortcuts
                 print("incompleteShortcuts from dataStore: \(self.shortcuts.count)")
             }
             .store(in: &cancellables)
     }
     
     func updateShortcut(shortcut: Shortcut) {
-        coreDataStore.updateStats(shortcut: shortcut, isComplete: true)
+        coreDataStore.updateShortcut(shortcut: shortcut, isComplete: shortcut.isComplete)
     }
     
     func resetShortcuts() {
