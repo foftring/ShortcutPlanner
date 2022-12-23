@@ -11,9 +11,11 @@ import Combine
 class HomeViewModel: ObservableObject {
     @Published var offset: CGSize = .zero
     @Published var shortcuts: [Shortcut] = []
-    let sirService = SiriService.shared
-    var cancellables = Set<AnyCancellable>()
-    let dataStore = ShortcutStore.shared
+    @Published var hasImportedShortcuts: Bool = false
+    private let sirService = SiriService.shared
+    private let dataStore = ShortcutStore.shared
+    private let coreDataService = CoreDataService.shared
+    private var cancellables = Set<AnyCancellable>()
     
     init() {
         addSubscribers()
@@ -27,6 +29,14 @@ class HomeViewModel: ObservableObject {
                 self.shortcuts = shortcuts
             }
             .store(in: &cancellables)
+        
+        coreDataService.$savedStats
+            .receive(on: DispatchQueue.main)
+            .sink { savedStats in
+                if !savedStats.isEmpty { self.hasImportedShortcuts = true }
+            }
+            .store(in: &cancellables)
+            
     }
     
     func runShortcut(_ shortcut: Shortcut) {
@@ -79,6 +89,10 @@ class HomeViewModel: ObservableObject {
 
     func testReset() {
         dataStore.resetShortcuts()
+    }
+    
+    func resetCoreData() {
+        coreDataService.deleteAllData()
     }
     
 

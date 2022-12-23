@@ -47,6 +47,21 @@ class CoreDataService: ObservableObject {
             print("Error fetching health stats: \(error.localizedDescription)")
         }
     }
+    
+    func deleteAllData() {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+        fetchRequest.returnsObjectsAsFaults = false
+        do {
+            let results = try container.viewContext.fetch(fetchRequest)
+            for object in results {
+                guard let objectData = object as? NSManagedObject else {continue}
+                container.viewContext.delete(objectData)
+                applyChanges()
+            }
+        } catch let error {
+            print("Detele all data in \(entityName) error :", error)
+        }
+    }
 
     func add(shortcut: Shortcut) {
         let entity = ShortcutEntity(context: container.viewContext)

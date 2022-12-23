@@ -31,7 +31,7 @@ struct CardView: View {
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
         TabView {
-            CardView(offset: .constant(.zero), shortcut: Shortcut(title: "Card 5"))
+            CardView(offset: .constant(.zero), shortcut: dev.shotcut)
         }
     }
 }

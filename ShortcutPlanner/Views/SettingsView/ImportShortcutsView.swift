@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ImportShortcutsView: View {
     
-    @State var isShowingInstructionsView: Bool = true
+    @State var isShowingInstructionsView: Bool = false
     @State var textEditText: String = ""
     
     let dataStore = ShortcutStore.shared
@@ -44,7 +44,7 @@ struct ImportShortcutsView: View {
     
     func parseShortcuts() {
         let parsedString = textEditText.split(whereSeparator: \.isNewline)
-        let shortcuts = parsedString.map { Shortcut(title: String($0)) }
+        let shortcuts = parsedString.map { Shortcut(id: UUID(), title: String($0)) }
         print("mapped shortcuts: \(shortcuts)")
         for shortcut in shortcuts {
             CoreDataService.shared.add(shortcut: shortcut)

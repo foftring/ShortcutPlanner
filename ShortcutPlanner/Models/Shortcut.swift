@@ -7,11 +7,12 @@
 
 import Foundation
 class Shortcut: Identifiable, Equatable {
-    let id = UUID()
+    let id: UUID
     let title: String
     var isComplete: Bool
     
-    init(title: String, isComplete: Bool = false) {
+    init(id: UUID, title: String, isComplete: Bool = false) {
+        self.id = id
         self.title = title
         self.isComplete = isComplete
     }

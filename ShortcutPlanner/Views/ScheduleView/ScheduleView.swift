@@ -64,6 +64,6 @@ struct ListRow: View {
 
 struct ListRow_Previews: PreviewProvider {
     static var previews: some View {
-        ListRow(shortcut: Shortcut(title: "Example Shortcut"), index: 2)
+        ListRow(shortcut: dev.shotcut, index: 2)
     }
 }
