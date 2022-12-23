@@ -44,7 +44,9 @@ struct ImportShortcutsView: View {
     
     func parseShortcuts() {
         let parsedString = textEditText.split(whereSeparator: \.isNewline)
-        let shortcuts = parsedString.map { Shortcut(id: UUID(), title: String($0), order: parsedString.firstIndex(of: $0) ?? 0) }
+        let shortcuts = parsedString.map {
+            return Shortcut(id: UUID(), title: String($0), order: parsedString.firstIndex(of: $0) ?? 0 + 1)
+        }
         print("mapped shortcuts: \(shortcuts)")
         for shortcut in shortcuts {
             CoreDataService.shared.add(shortcut: shortcut)

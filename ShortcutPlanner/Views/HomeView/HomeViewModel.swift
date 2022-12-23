@@ -27,7 +27,7 @@ class HomeViewModel: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { shortcuts in
                 print("Updating shortcuts!! \(shortcuts) -- shortcutsCount from vM: \(shortcuts.count) -- uncompleted \(shortcuts.filter({!$0.isComplete}).count)")
-                self.shortcuts = shortcuts
+                self.shortcuts = shortcuts.sorted(by: { $0.order < $1.order })
                 if shortcuts.allSatisfy({ $0.isComplete }) {
                     self.isFinished = true
                 } else {

@@ -38,7 +38,7 @@ struct HomeView: View {
                 }
                 background
                     .edgesIgnoringSafeArea(.all)
-                ForEach(viewModel.shortcuts.filter({ !$0.isComplete })) { shortcut in
+                ForEach(viewModel.shortcuts.filter({ !$0.isComplete }).sorted(by: { $0.order > $1.order })) { shortcut in
                     CardView(offset: $viewModel.offset, shortcut: shortcut)
                         .gesture(DragGesture()
                             .onChanged { gesture in

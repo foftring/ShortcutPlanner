@@ -18,6 +18,10 @@ class Shortcut: Identifiable, Equatable {
         self.isComplete = isComplete
         self.order = order
     }
+    
+    func updateOrder(index: Int) {
+        self.order = index
+    }
 }
 
 extension Shortcut {

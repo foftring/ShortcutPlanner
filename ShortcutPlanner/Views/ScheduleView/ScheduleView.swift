@@ -47,6 +47,9 @@ struct ScheduleView: View {
 
         func move(from source: IndexSet, to destination: Int) {
             shortcuts.move(fromOffsets: source, toOffset: destination)
+            for shortcut in shortcuts {
+                shortcut.order = destination
+            }
             withAnimation {
                 isEditable = false
             }
