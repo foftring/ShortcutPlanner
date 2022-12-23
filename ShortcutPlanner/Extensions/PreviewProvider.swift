@@ -17,7 +17,7 @@ class DeveloperPreview {
     @Published var shortcuts: [Shortcut] = []
     static let instance = DeveloperPreview()
     
-    var shotcut = Shortcut(id: UUID(), title: "Log my meal")
+    var shotcut = Shortcut(id: UUID(), title: "Log my meal", order: 2)
     
     init() {
         getCards()
@@ -45,7 +45,7 @@ class DeveloperPreview {
     func getCards() {
             for index in 0..<10 {
                 let shortcut = myShortcuts[index]
-                shortcuts.append(Shortcut(id: UUID(), title: shortcut))
+                shortcuts.append(Shortcut(id: UUID(), title: shortcut, order: index))
                 print("appending shortcut \(shortcut)")
             }
         }

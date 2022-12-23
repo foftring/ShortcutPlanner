@@ -22,7 +22,7 @@ class ShortcutStore: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { shortcutEntities in
                 print("subscription updated!")
-                let mappedShortcuts = shortcutEntities.map({ Shortcut(id: $0.id ?? UUID(), title: $0.title ?? "", isComplete: $0.isComplete) })
+                let mappedShortcuts = shortcutEntities.map({ Shortcut(id: $0.id ?? UUID(), title: $0.title ?? "", isComplete: $0.isComplete, order: Int($0.order)) })
                 self.shortcuts = mappedShortcuts
                 print("incompleteShortcuts from dataStore: \(self.shortcuts.count)")
             }

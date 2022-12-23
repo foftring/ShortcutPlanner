@@ -10,11 +10,13 @@ class Shortcut: Identifiable, Equatable {
     let id: UUID
     let title: String
     var isComplete: Bool
+    var order: Int
     
-    init(id: UUID, title: String, isComplete: Bool = false) {
+    init(id: UUID, title: String, isComplete: Bool = false, order: Int) {
         self.id = id
         self.title = title
         self.isComplete = isComplete
+        self.order = order
     }
 }
 

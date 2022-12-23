@@ -19,6 +19,7 @@ struct ScheduleView: View {
             List {
                 ForEach(shortcuts) { shortcut in
                     HStack {
+                        Text("\(shortcut.order ?? 0)")
                         Text(shortcut.title)
                             .foregroundColor(shortcut.isComplete ? .secondary : .primary)
                             .strikethrough(shortcut.isComplete)
@@ -29,7 +30,7 @@ struct ScheduleView: View {
                         }
                     }
                     .onTapGesture {
-                        viewModel.updateShortcut(shortcut)
+                        viewModel.updateShortcut(shortcut, shouldToggle: true)
                     }
                 }
                 .onMove(perform: move)

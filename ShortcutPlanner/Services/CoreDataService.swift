@@ -68,6 +68,7 @@ class CoreDataService: ObservableObject {
         entity.title = shortcut.title
         entity.id = shortcut.id
         entity.isComplete = false
+        entity.order = Int16(shortcut.order)
         applyChanges()
     }
 

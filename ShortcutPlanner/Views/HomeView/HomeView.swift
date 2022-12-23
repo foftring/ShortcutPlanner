@@ -52,13 +52,13 @@ struct HomeView: View {
                             .onEnded { gesture in
                                 if gesture.translation.width < -100 {
                                     // Handle swipe left gesture
-                                    viewModel.updateShortcut(shortcut)
+                                    viewModel.updateShortcut(shortcut, shouldToggle: true)
                                     print("Removing Card! -100")
                                     viewModel.offset = .zero
                                     background = .clear
                                 } else if gesture.translation.width > 100 {
                                     // Handle swipe right gesture
-                                    viewModel.updateShortcut(shortcut)
+                                    viewModel.updateShortcut(shortcut, shouldToggle: true)
                                     print("Removing Card! +100")
                                     viewModel.offset = .zero
                                     background = .clear

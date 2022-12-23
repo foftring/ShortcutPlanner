@@ -95,8 +95,8 @@ class HomeViewModel: ObservableObject {
         coreDataService.deleteAllData()
     }
     
-    func updateShortcut(_ shortcut: Shortcut) {
-        shortcut.isComplete.toggle()
+    func updateShortcut(_ shortcut: Shortcut, shouldToggle: Bool = false) {
+        if shouldToggle { shortcut.isComplete.toggle() }
         dataStore.updateShortcut(shortcut: shortcut)
     }
     
