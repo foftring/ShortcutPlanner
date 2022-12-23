@@ -26,14 +26,13 @@ struct TabController: View {
                         .renderingMode(.original)
                 }
             
-            SettingsView(selection: $selction)
+            SettingsView()
                 .tag(2)
                 .tabItem {
                     Text("Settings")
                     Image(systemName: "gear.circle.fill")
                         .renderingMode(.original)
                 }
-            
         }
         .tint(.primary)
     }

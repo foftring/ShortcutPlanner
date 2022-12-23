@@ -2,45 +2,49 @@
 //  SettingsView.swift
 //  ShortcutPlanner
 //
-//  Created by Frank Oftring on 12/20/22.
+//  Created by Frank Oftring on 12/22/22.
 //
 
 import SwiftUI
 
 struct SettingsView: View {
-    
-    @State var textEditText: String = ""
-    @Binding var selection: Int
-    
-    let dataStore = ShortcutStore.shared
-    
+    @State private var isShowingImportView: Bool = false
     var body: some View {
-        Form {
-            Button {
-                parseShortcuts()
-            } label: {
-                Text("Import Shortcuts")
+        NavigationView {
+            List {
+                Section {
+                    Text("Notifications")
+                    Button {
+                        isShowingImportView = true
+                    } label: {
+                        HStack {
+                            Image(systemName: "square.and.arrow.down.fill")
+                                .foregroundColor(.primary)
+                            Text("Import")
+                                .foregroundColor(.primary)
+                        }
+                    }
+                    
+                    NavigationLink("Import Shortcuts") {
+                        ImportShortcutsView()
+                    }
+                }
+                
+                Section {
+                    Text("About")
+                    Text("Request a Feature")
+                    Text("What's New")
+                }
             }
-            Section("Paste shortcuts here") {
-                TextEditor(text: $textEditText)
-                    .frame(height: 350)
-            }
+            .sheet(isPresented: $isShowingImportView) {
+                ImportShortcutsView()
         }
-    }
-    
-    func parseShortcuts() {
-        let parsedString = textEditText.split(whereSeparator: \.isNewline)
-        let shortcuts = parsedString.map { Shortcut(title: String($0)) }
-        print("mapped shortcuts: \(shortcuts)")
-        for shortcut in shortcuts {
-            CoreDataService.shared.add(shortcut: shortcut)
         }
-        selection = 1
     }
 }
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(selection: .constant(2))
+        SettingsView()
     }
 }

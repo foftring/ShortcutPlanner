@@ -15,6 +15,15 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             ZStack {
+                if viewModel.shortcuts.isEmpty {
+                    VStack(spacing: 20) {
+                        Text("No messages found")
+                            .font(.title)
+                        Text("Seems like you are all caught up for now")
+                            .font(.title3)
+                        Image("inbox")
+                    }
+                }
                     background
                     .edgesIgnoringSafeArea(.all)
                     ForEach(viewModel.shortcuts) { shortcut in
