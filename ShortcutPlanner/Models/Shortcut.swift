@@ -6,11 +6,11 @@
 //
 
 import Foundation
-class Shortcut: Identifiable, Equatable {
+class Shortcut: ObservableObject, Identifiable, Equatable {
     let id: UUID
     let title: String
     var isComplete: Bool
-    var order: Int
+    @Published var order: Int
     
     init(id: UUID, title: String, isComplete: Bool = false, order: Int) {
         self.id = id
