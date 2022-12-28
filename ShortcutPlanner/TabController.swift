@@ -9,19 +9,19 @@ import SwiftUI
 
 class TabViewModel: ObservableObject {
     @Published var shortcuts: [String] = []
-    @Published var selction: Int = 1
+    @Published var selction: TabType = .home
     let dataStore = ShortcutStore.shared
 }
 
 struct TabController: View {
     
+    @EnvironmentObject var linkManager: DeeplinkManager
     @StateObject var viewModel = TabViewModel()
     
     var body: some View {
-        TabView(selection: $viewModel.selction) {
-            
+        TabView(selection: $linkManager.activeTab) {
             HomeView()
-                .tag(1)
+                .tag(TabType.home)
                 .tabItem {
                     Text("Schedule")
                         .accentColor(.red)
@@ -30,7 +30,7 @@ struct TabController: View {
                 }
             
             SettingsView()
-                .tag(2)
+                .tag(TabType.settings)
                 .tabItem {
                     Text("Settings")
                     Image(systemName: "gear.circle.fill")
@@ -38,9 +38,8 @@ struct TabController: View {
                 }
             
             ImportShortcutsView()
-                .tag(3)
+                .tag(TabType.importView)
         }
-        .environmentObject(viewModel)
         .tint(.primary)
     }
 }

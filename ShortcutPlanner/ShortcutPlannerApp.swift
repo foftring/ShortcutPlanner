@@ -10,57 +10,46 @@ import SwiftUI
 @main
 struct ShortcutPlannerApp: App {
     
-    @State var deeplinkTarget: DeeplinkManager.DeeplinkTarget?
+    @StateObject var deeplinkManager = DeeplinkManager()
     
     var body: some Scene {
         WindowGroup {
-            Group{
-                switch self.deeplinkTarget {
-                case .home:
-                    TabController()
-                case .settings(let queryInfo):
-                    ImportShortcutsView()
-                case .none:
-                    TabController()
-                }
-            }
+            TabController()
                 .onOpenURL { url in
-                    let deeplinkManager = DeeplinkManager()
-                    let deeplink = deeplinkManager.manage(url: url)
-                    self.deeplinkTarget = deeplink
+                    print("url: \(url)")
+                     deeplinkManager.manage(url: url)
                 }
+                .environmentObject(deeplinkManager)
         }
     }
 }
 
-class DeeplinkManager {
+enum TabType: String, Equatable {
+    case home
+    case settings
+    case importView
+}
+class DeeplinkManager: ObservableObject {
     
-    enum DeeplinkTarget: Equatable {
-        case home
-        case settings(reference: String)
-    }
+    @Published var activeTab: TabType = .home
+    private let scheme = "swipebot"
     
-    class DeepLinkConstants {
-        static let scheme = "shortcutplanner"
-        static let host = "com.shortcutplanner"
-        static let detailsPath = "/details"
-        static let query = "id"
-    }
-    
-    func manage(url: URL) -> DeeplinkTarget {
-        guard url.scheme == DeepLinkConstants.scheme,
-              url.host == DeepLinkConstants.host,
-              url.path == DeepLinkConstants.detailsPath,
-              let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
-              let queryItems = components.queryItems
-        else { return .home }
-        
-        let query = queryItems.reduce(into: [String: String]()) { (result, item) in
-            result[item.name] = item.value
+    func manage(url: URL) {
+        guard url.scheme == scheme, let host = URLComponents(url: url, resolvingAgainstBaseURL: true)?.host else {
+            print("invalid scheme. opening home \(url.scheme)")
+            activeTab = .home
+            return
         }
         
-        guard let id = query[DeepLinkConstants.query] else { return .home }
-        
-        return .settings(reference: id)
+        if host == TabType.home.rawValue {
+            activeTab = .home
+        } else if host == TabType.settings.rawValue {
+            activeTab = .settings
+        } else if host == TabType.importView.rawValue {
+            activeTab = .importView
+            print("activeTab: \(self.activeTab)")
+        } else {
+            activeTab = .home
+        }
     }
 }
