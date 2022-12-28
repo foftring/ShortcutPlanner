@@ -39,6 +39,11 @@ struct TabController: View {
             
             ImportShortcutsView()
                 .tag(TabType.importView)
+                .tabItem {
+                    Text("Import")
+                    Image(systemName: "square.and.arrow.down.fill")
+                        .renderingMode(.original)
+                }
         }
         .tint(.primary)
     }

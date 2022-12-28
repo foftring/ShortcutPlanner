@@ -29,7 +29,9 @@ struct ImportShortcutsView: View {
             }
         }
         .onAppear {
-            getPasteboard()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                getPasteboard()
+            }
         }
         .sheet(isPresented: $isShowingInstructionsView) {
             VStack(alignment: .center) {
