@@ -11,6 +11,7 @@ struct ImportShortcutsView: View {
     
     @State var isShowingInstructionsView: Bool = false
     @State var textEditText: String = ""
+    @EnvironmentObject var tabViewModel: TabViewModel
     
     let dataStore = ShortcutStore.shared
     
@@ -18,6 +19,7 @@ struct ImportShortcutsView: View {
         Form {
             Button {
                 parseShortcuts()
+                tabViewModel.selction = 1
             } label: {
                 Text("Import Shortcuts")
             }

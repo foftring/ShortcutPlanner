@@ -7,15 +7,18 @@
 
 import SwiftUI
 
+class TabViewModel: ObservableObject {
+    @Published var shortcuts: [String] = []
+    @Published var selction: Int = 1
+    let dataStore = ShortcutStore.shared
+}
+
 struct TabController: View {
     
-    @State var shortcuts: [String] = []
-    @State var selction: Int = 1
-    let dataStore = ShortcutStore.shared
-    
+    @StateObject var viewModel = TabViewModel()
     
     var body: some View {
-        TabView(selection: $selction) {
+        TabView(selection: $viewModel.selction) {
             
             HomeView()
                 .tag(1)
@@ -33,7 +36,11 @@ struct TabController: View {
                     Image(systemName: "gear.circle.fill")
                         .renderingMode(.original)
                 }
+            
+            ImportShortcutsView()
+                .tag(3)
         }
+        .environmentObject(viewModel)
         .tint(.primary)
     }
 }
