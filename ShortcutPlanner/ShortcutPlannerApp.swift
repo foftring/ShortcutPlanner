@@ -11,6 +11,7 @@ import SwiftUI
 struct ShortcutPlannerApp: App {
     
     @StateObject var deeplinkManager = DeeplinkManager()
+    let persistenceController = CoreDataService.shared
     
     var body: some Scene {
         WindowGroup {
@@ -20,6 +21,8 @@ struct ShortcutPlannerApp: App {
                      deeplinkManager.manage(url: url)
                 }
                 .environmentObject(deeplinkManager)
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+
         }
     }
 }

@@ -103,21 +103,4 @@ class HomeViewModel: ObservableObject {
 
 }
 
-/*
- "Play Castro",
- "Skip this episode",
- "Get My Shortcuts",
- "Turn On Overhead Lights",
- "Go To Sleep",
- "Morning Hydration",
- "Add an Espresso",
- "Add A Cold Brew",
- "Post Workout",
- "Add Green Tea",
- "Add A Large Coffee",
- "Add A Medium Coffee",
- "Add A Large Cold Brew",
- "Add A Protein Shake",
- "Sweetgreen Order",
- "Chipotle Order"
- */
+

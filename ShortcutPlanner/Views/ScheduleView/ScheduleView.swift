@@ -14,13 +14,17 @@ struct ScheduleView: View {
     @State private var isEditable = false
     @Binding var shortcuts: [Shortcut]
     @ObservedObject var viewModel: HomeViewModel
-    @Environment(\.managedObjectContext) private var viewContext
 
+    @FetchRequest(
+            sortDescriptors: [NSSortDescriptor(keyPath: \ShortcutEntity.order, ascending: true)],
+            animation: .default)
+        private var items: FetchedResults<ShortcutEntity>
     
     var body: some View {
         List {
             ForEach(shortcuts) { shortcut in
                 HStack {
+//                    Text("\(shortcuts.firstIndex(of: shortcut)")
                     Text("\(shortcut.order ?? 0)")
                     Text(shortcut.title)
                         .foregroundColor(shortcut.isComplete ? .secondary : .primary)
@@ -47,48 +51,35 @@ struct ScheduleView: View {
         .environment(\.editMode, isEditable ? .constant(.active) : .constant(.inactive))
     }
     
-    func move(from source: IndexSet, to destination: Int) {
-        shortcuts.move(fromOffsets: source, toOffset: destination)
-        withAnimation {
-            isEditable = false
-        }
-    }
-    
     private func moveItem(at sets:IndexSet, destination:Int) {
-        withAnimation {
-            isEditable = false
-            let itemToMove = sets.first!
-            
-            if itemToMove < destination {
-                var startIndex = itemToMove + 1
-                let endIndex = destination - 1
-                var startOrder = CoreDataService.shared.savedStats[itemToMove].order
-                while startIndex <= endIndex{
-                    CoreDataService.shared.savedStats[startIndex].order = startOrder
-                    startOrder = startOrder + 1
-                    startIndex = startIndex + 1
-                }
-                CoreDataService.shared.savedStats[itemToMove].order = startOrder
+        let itemToMove = sets.first!
+        
+        if itemToMove < destination {
+            var startIndex = itemToMove + 1
+            let endIndex = destination - 1
+            var startOrder = items[itemToMove].order
+            while startIndex <= endIndex{
+                items[startIndex].order = startOrder
+                startOrder = startOrder + 1
+                startIndex = startIndex + 1
             }
-            else if destination < itemToMove {
-                var startIndex = destination
-                let endIndex = itemToMove - 1
-                var startOrder = CoreDataService.shared.savedStats[destination].order + 1
-                let newOrder = CoreDataService.shared.savedStats[destination].order
-                while startIndex <= endIndex{
-                    CoreDataService.shared.savedStats[startIndex].order = startOrder
-                    startOrder = startOrder + 1
-                    startIndex = startIndex + 1
-                }
-                CoreDataService.shared.savedStats[itemToMove].order = newOrder
-            }
-            do {
-                try viewContext.save()
-            }
-            catch {
-                print(error.localizedDescription)
-            }
+            items[itemToMove].order = startOrder
         }
+        else if destination < itemToMove {
+            var startIndex = destination
+            let endIndex = itemToMove - 1
+            var startOrder = items[destination].order + 1
+            let newOrder = items[destination].order
+            while startIndex <= endIndex{
+                items[startIndex].order = startOrder
+                startOrder = startOrder + 1
+                startIndex = startIndex + 1
+            }
+            items[itemToMove].order = newOrder
+        }
+        
+        CoreDataService.shared.applyChanges()
+        
     }
 }
 

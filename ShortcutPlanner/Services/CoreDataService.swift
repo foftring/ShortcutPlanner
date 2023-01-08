@@ -10,7 +10,7 @@ import CoreData
 
 class CoreDataService: ObservableObject {
     
-    private let container: NSPersistentContainer
+    let container: NSPersistentContainer
     private let containerName: String = "ShortcutPlanner"
     private let entityName: String = "ShortcutEntity"
     
@@ -33,7 +33,7 @@ class CoreDataService: ObservableObject {
 
         //check if stat is already saved
         if let entity = savedStats.first(where: { $0.title == shortcut.title }) {
-            update(entity: entity, isComplete: isComplete)
+            update(entity: entity, isComplete: isComplete, order: shortcut.order)
         } else {
             add(shortcut: shortcut)
         }
@@ -72,8 +72,13 @@ class CoreDataService: ObservableObject {
         applyChanges()
     }
 
-    func update(entity: ShortcutEntity, isComplete: Bool) {
-        entity.isComplete = isComplete
+    func update(entity: ShortcutEntity, isComplete: Bool? = nil, order: Int? = nil) {
+        if let isComplete = isComplete {
+            entity.isComplete = isComplete
+        }
+        if let order = order {
+            entity.order = Int16(order)
+        }
         applyChanges()
     }
 
