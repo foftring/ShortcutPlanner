@@ -14,6 +14,8 @@ struct HomeView: View {
     @StateObject var viewModel = HomeViewModel()
     @State var background: Color = .clear
     @State private var showSafari: Bool = false
+    @State var triggerDate = Date()
+    @State var shouldRepeat = true
     let test: [Int] = []
     
     var body: some View {
@@ -41,7 +43,7 @@ struct HomeView: View {
                 background
                     .edgesIgnoringSafeArea(.all)
                 ForEach(viewModel.shortcuts.filter({ !$0.isComplete }).sorted(by: { $0.order > $1.order })) { shortcut in
-                    CardView(offset: $viewModel.offset, shortcut: shortcut)
+                    CardView(triggerDate: $triggerDate, shouldRepeat: $shouldRepeat, offset: $viewModel.offset, shortcut: shortcut)
                         .gesture(DragGesture()
                             .onChanged { gesture in
                                 // Update the position of the top CardView

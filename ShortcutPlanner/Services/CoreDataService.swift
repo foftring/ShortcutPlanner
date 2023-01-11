@@ -28,7 +28,7 @@ class CoreDataService: ObservableObject {
         }
     }
     
-    func updateShortcut(shortcut: Shortcut, isComplete: Bool) {
+    func updateShortcut(shortcut: Shortcut, isComplete: Bool? = nil, order: Int? = nil) {
         print("Enabled: \(isComplete)")
 
         //check if stat is already saved
