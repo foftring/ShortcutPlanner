@@ -24,7 +24,6 @@ struct ScheduleView: View {
         List {
             ForEach(shortcuts) { shortcut in
                 HStack {
-//                    Text("\(shortcuts.firstIndex(of: shortcut)")
                     Text("\(shortcut.order ?? 0)")
                     Text(shortcut.title)
                         .foregroundColor(shortcut.isComplete ? .secondary : .primary)
@@ -39,6 +38,7 @@ struct ScheduleView: View {
                     viewModel.updateShortcut(shortcut, shouldToggle: true)
                 }
             }
+            .onDelete(perform: deleteItem)
             .onMove(perform: moveItem)
             .onLongPressGesture {
                 withAnimation {
@@ -51,7 +51,7 @@ struct ScheduleView: View {
         .environment(\.editMode, isEditable ? .constant(.active) : .constant(.inactive))
     }
     
-    private func moveItem(at sets:IndexSet, destination:Int) {
+    private func moveItem(at sets: IndexSet, destination: Int) {
         let itemToMove = sets.first!
         
         if itemToMove < destination {
@@ -77,9 +77,13 @@ struct ScheduleView: View {
             }
             items[itemToMove].order = newOrder
         }
-        
         CoreDataService.shared.applyChanges()
-        
+    }
+    
+    private func deleteItem(at offset: IndexSet){
+        withAnimation{
+            offset.map{ items[$0] }.forEach {CoreDataService.shared.delete(entity: $0) }
+        }
     }
 }
 

@@ -46,11 +46,13 @@ struct TabController: View {
                 }
         }
         .tint(.primary)
+        .environmentObject(linkManager)
     }
 }
 
 struct TabController_Previews: PreviewProvider {
     static var previews: some View {
         TabController()
+            .environmentObject(DeeplinkManager())
     }
 }

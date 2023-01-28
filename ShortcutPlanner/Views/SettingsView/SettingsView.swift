@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @State private var isShowingImportView: Bool = false
+    @EnvironmentObject var linkManager: DeeplinkManager
     var body: some View {
         NavigationView {
             List {
                 Section {
                     Text("Notifications")
                     Button {
-                        isShowingImportView = true
+                        linkManager.activeTab = .importView
                     } label: {
                         HStack {
                             Image(systemName: "square.and.arrow.down.fill")
@@ -23,10 +23,6 @@ struct SettingsView: View {
                             Text("Import")
                                 .foregroundColor(.primary)
                         }
-                    }
-                    
-                    NavigationLink("Import Shortcuts") {
-                        ImportShortcutsView()
                     }
                 }
                 
@@ -36,9 +32,6 @@ struct SettingsView: View {
                     Text("What's New")
                 }
             }
-            .sheet(isPresented: $isShowingImportView) {
-                ImportShortcutsView()
-        }
         }
     }
 }
