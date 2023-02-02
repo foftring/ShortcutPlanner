@@ -32,7 +32,7 @@ struct CardView: View {
                     .foregroundColor(.black)
                 Spacer()
                 if expandView {
-                    ReminderView(triggerDate: $triggerDate, shouldRepeat: $shouldRepeat)
+                    ReminderView(triggerDate: $triggerDate, shouldRepeat: $shouldRepeat, shortcut: shortcut)
                     Spacer()
                 }
                 Image(systemName: expandView ? "chevron.up.circle.fill" : "chevron.down.circle.fill")
