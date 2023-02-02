@@ -6,6 +6,7 @@
 //
 import Combine
 import Foundation
+import UIKit
 class ShortcutStore: ObservableObject {
     
     @Published var shortcuts: [Shortcut] = []
@@ -38,5 +39,24 @@ class ShortcutStore: ObservableObject {
             $0.isComplete = false
             print("Changing complete for \($0) -- isComplete: \($0.isComplete)")
         })
+    }
+    
+    func runShortcut(_ shortcut: Shortcut) {
+        /*
+         let shortcut = URL(string: "shortcuts://x-callback-url/run-shortcut?name=Take%20Picture&x-success=myapp://")!
+         UIApplication.shared.open(shortcut, options: [:], completionHandler: nil)
+         */
+        guard let escapedString = shortcut.title.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
+            print("error escaping string")
+            return
+        }
+        print("shortcutURL: \(escapedString)")
+        guard let shortcut = URL(string: "shortcuts://x-callback-url/run-shortcut?name=\(escapedString)&x-success=ShortcutPlanner://") else {
+            print("Error for shortcut!: \(escapedString)")
+            return
+        }
+        UIApplication.shared.open(shortcut, options: [:], completionHandler: nil)
+        print("Shortcut: \(shortcut)")
+        
     }
 }

@@ -57,22 +57,7 @@ class HomeViewModel: ObservableObject {
     }
     
     func runShortcut(_ shortcut: Shortcut) {
-        /*
-         let shortcut = URL(string: "shortcuts://x-callback-url/run-shortcut?name=Take%20Picture&x-success=myapp://")!
-         UIApplication.shared.open(shortcut, options: [:], completionHandler: nil)
-         */
-        guard let escapedString = shortcut.title.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
-            print("error escaping string")
-            return
-        }
-        print("shortcutURL: \(escapedString)")
-        guard let shortcut = URL(string: "shortcuts://x-callback-url/run-shortcut?name=\(escapedString)&x-success=ShortcutPlanner://") else {
-            print("Error for shortcut!: \(escapedString)")
-            return
-        }
-        UIApplication.shared.open(shortcut, options: [:], completionHandler: nil)
-        print("Shortcut: \(shortcut)")
-        
+        dataStore.runShortcut(shortcut)
     }
     
     func removeCard(shortcut: Shortcut) {
