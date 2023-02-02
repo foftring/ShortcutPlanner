@@ -20,6 +20,7 @@
 		01CB56D92953A80900B2560C /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CB56D82953A80900B2560C /* CoreDataService.swift */; };
 		01CB56DC2953A85C00B2560C /* Shortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CB56DB2953A85C00B2560C /* Shortcut.swift */; };
 		01CB56DE29551FE100B2560C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CB56DD29551FE100B2560C /* SettingsView.swift */; };
+		01DA5947298C48CA00D67F46 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DA5946298C48CA00D67F46 /* NotificationView.swift */; };
 		01E33974296F5ABF009E557F /* ReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E33973296F5ABF009E557F /* ReminderView.swift */; };
 		01E33976296F5D77009E557F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E33975296F5D77009E557F /* NotificationService.swift */; };
 		01F4AF73295253A800FF4619 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F4AF72295253A800FF4619 /* ScheduleView.swift */; };
@@ -44,6 +45,7 @@
 		01CB56D82953A80900B2560C /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		01CB56DB2953A85C00B2560C /* Shortcut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcut.swift; sourceTree = "<group>"; };
 		01CB56DD29551FE100B2560C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		01DA5946298C48CA00D67F46 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		01E33973296F5ABF009E557F /* ReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderView.swift; sourceTree = "<group>"; };
 		01E33975296F5D77009E557F /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		01F4AF72295253A800FF4619 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
@@ -142,6 +144,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		01DA5945298C48BC00D67F46 /* NotificationView */ = {
+			isa = PBXGroup;
+			children = (
+				01DA5946298C48CA00D67F46 /* NotificationView.swift */,
+			);
+			path = NotificationView;
+			sourceTree = "<group>";
+		};
 		01F4AF712952539700FF4619 /* ScheduleView */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +171,7 @@
 		01F4AF792952661700FF4619 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				01DA5945298C48BC00D67F46 /* NotificationView */,
 				01F4AF7A2952662E00FF4619 /* SettingsView */,
 				014B174B293C1CC100BEE8B1 /* HomeView */,
 				01F4AF712952539700FF4619 /* ScheduleView */,
@@ -253,6 +264,7 @@
 				01CB56DC2953A85C00B2560C /* Shortcut.swift in Sources */,
 				014B174D293C1CF900BEE8B1 /* HomeViewModel.swift in Sources */,
 				014B1750293C1D2300BEE8B1 /* CardView.swift in Sources */,
+				01DA5947298C48CA00D67F46 /* NotificationView.swift in Sources */,
 				014B1753293C1D8600BEE8B1 /* SiriService.swift in Sources */,
 				01CB56DE29551FE100B2560C /* SettingsView.swift in Sources */,
 				01CB56D72953A79D00B2560C /* ShortcutPlanner.xcdatamodeld in Sources */,

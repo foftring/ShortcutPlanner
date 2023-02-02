@@ -27,7 +27,6 @@ class NotificationService: NSObject, ObservableObject {
         case accept, reject
     }
     
-    
     func requestAuthorization() async throws {
         authorized = try await center.requestAuthorization(options: [.badge, .sound, .alert])
         self.registerCustomActions()

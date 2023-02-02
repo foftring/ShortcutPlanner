@@ -13,7 +13,9 @@ struct SettingsView: View {
         NavigationView {
             List {
                 Section {
-                    Text("Notifications")
+                    NavigationLink("Notifications") {
+                        NotificationView()
+                    }
                     Button {
                         linkManager.activeTab = .importView
                     } label: {
