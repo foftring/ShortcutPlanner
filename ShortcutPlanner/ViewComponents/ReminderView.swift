@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct ReminderView: View {
+    @EnvironmentObject var viewModel: HomeViewModel
     @State var buttonPressed: Bool = false
     @State var showCheckmark: Bool = false
     @Binding var triggerDate: Date
     @Binding var shouldRepeat: Bool
     @Binding var expandView: Bool
     let shortcut: Shortcut
-    let notificationService = NotificationService.shared
+//    let notificationService = NotificationService.shared
     
     var body: some View {
         VStack {
@@ -27,7 +28,8 @@ struct ReminderView: View {
             }
             
             Button {
-                notificationService.scheduleNotification(date: triggerDate, shortcut: shortcut)
+                viewModel.notificationService.scheduleNotification(date: triggerDate, shortcut: shortcut)
+                print("Button pressed!")
             } label: {
                 VStack {
                     ZStack {
@@ -38,20 +40,6 @@ struct ReminderView: View {
                         Text("Schedule Shortcut")
                             .foregroundColor(.white)
                     }
-                    .onTapGesture {
-                        buttonPressed = true
-                        showCheckmark = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                            buttonPressed = false
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                            showCheckmark = false
-                            expandView.toggle()
-                        }
-                    }
-                    .scaleEffect(buttonPressed ? 1.2 : 1)
-                    .animation(.spring(response: 0.4, dampingFraction: 0.6))
-                    .padding()
                     
                     if showCheckmark {
                         HStack {
@@ -65,6 +53,24 @@ struct ReminderView: View {
                     }
                 }
             }
+            .onTapGesture {
+                print("button tapped from tap gesture")
+                buttonPressed = true
+                showCheckmark = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    buttonPressed = false
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    showCheckmark = false
+                    expandView.toggle()
+                }
+//                        Task {
+//                            await viewModel.notificationService.refreshNotifications()
+//                        }
+            }
+            .scaleEffect(buttonPressed ? 1.2 : 1)
+            .animation(.spring(response: 0.4, dampingFraction: 0.6))
+            .padding()
             
         }
         .padding()

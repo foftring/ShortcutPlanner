@@ -14,6 +14,7 @@ class NotificationService: NSObject, ObservableObject {
     @Published var settings: UNNotificationSettings?
     @Published var pending: [UNNotificationRequest] = []
     @Published var delivered: [UNNotification] = []
+    private let dataStore = ShortcutStore.shared
     private let center = UNUserNotificationCenter.current()
     
     override init() {
@@ -60,7 +61,8 @@ class NotificationService: NSObject, ObservableObject {
         
         content.title = title
         content.body = "It's time to run your shortcut"
-        let identifier = UUID().uuidString
+        let identifier = shortcut.id.uuidString
+        print("setting identifier -- \(identifier)")
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
         center.add(request)
     }
@@ -74,8 +76,6 @@ class NotificationService: NSObject, ObservableObject {
     }
     
     
-    
-    
 }
 
 extension NotificationService: UNUserNotificationCenterDelegate {
@@ -83,17 +83,26 @@ extension NotificationService: UNUserNotificationCenterDelegate {
         return [.banner, .badge, .sound]
     }
     
-    @MainActor
-    internal func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
-      let identity = response.notification.request.content.categoryIdentifier
-      guard identity == categoryIdentifier, let action = ActionIdentifier(rawValue: response.actionIdentifier) else { return }
-      print("You pressed \(response.actionIdentifier)")
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let identity = response.notification.request.content.categoryIdentifier
+        guard identity == categoryIdentifier, let action = ActionIdentifier(rawValue: response.actionIdentifier) else {
+            print("error from \(#function)")
+            return
+        }
+        
+        print("You pressed \(response.actionIdentifier)")
         switch action {
         case .accept:
             print("running accept action")
+            print("setting identifier -- \(response.notification.request.identifier)")
+            if let shortcut = dataStore.shortcuts.first(where: { $0.id.uuidString == response.notification.request.identifier}) {
+                dataStore.runShortcut(shortcut)
+            }
         case .reject:
             print("running reject action")
         }
+        completionHandler()
     }
-
+    
 }

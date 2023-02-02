@@ -16,7 +16,7 @@ class HomeViewModel: ObservableObject {
     @Published var showingAlert = false
     private let sirService = SiriService.shared
     private let dataStore = ShortcutStore.shared
-    private let notificationService = NotificationService.shared
+    @Published var notificationService = NotificationService.shared
     private let coreDataService = CoreDataService.shared
     private var cancellables = Set<AnyCancellable>()
     

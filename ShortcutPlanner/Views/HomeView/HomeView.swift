@@ -109,6 +109,7 @@ struct HomeView: View {
             .task {
                 await viewModel.getNotificationAuthorization()
             }
+            .environmentObject(viewModel)
         }
     }
 }
