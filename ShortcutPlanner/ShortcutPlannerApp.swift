@@ -9,7 +9,6 @@ import SwiftUI
 
 @main
 struct ShortcutPlannerApp: App {
-    
     @StateObject var deeplinkManager = DeeplinkManager()
     let persistenceController = CoreDataService.shared
     

@@ -16,7 +16,6 @@ struct HomeView: View {
     @State private var showSafari: Bool = false
     @State var triggerDate = Date()
     @State var shouldRepeat = true
-    let test: [Int] = []
     
     var body: some View {
         NavigationView {
@@ -96,6 +95,9 @@ struct HomeView: View {
             .sheet(isPresented: $showSafari, content: {
                 SFSafariViewWrapper(url: URL(string: "https://www.icloud.com/shortcuts/d2521bc53946416eb560e10966f70c1d")!)
             })
+            .alert(Text("Need Notifications!"), isPresented: $viewModel.showingAlert, actions: {
+                Text("Need Access to Notifications!")
+            })
             .onChange(of: scenePhase) { newPhase in
                 if newPhase == .background {
                     showSafari = false
@@ -103,6 +105,9 @@ struct HomeView: View {
             }
             .onAppear {
                 viewModel.resetAppValuesIfNewDay()
+            }
+            .task {
+                await viewModel.getNotificationAuthorization()
             }
         }
     }

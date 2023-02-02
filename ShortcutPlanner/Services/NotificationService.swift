@@ -8,62 +8,98 @@
 import Foundation
 import UserNotifications
 
-class NotificationService: ObservableObject {
+class NotificationService: NSObject, ObservableObject {
     static let shared = NotificationService()
+    @Published var authorized: Bool = false
     @Published var settings: UNNotificationSettings?
+    @Published var pending: [UNNotificationRequest] = []
+    @Published var delivered: [UNNotification] = []
+    private let center = UNUserNotificationCenter.current()
     
-    func requestAuthorization(completion: @escaping  (Bool) -> Void) {
-        UNUserNotificationCenter.current()
-            .requestAuthorization(options: [.alert, .sound, .badge]) { granted, _  in
-                self.fetchNotificationSettings()
-                completion(granted)
-            }
+    override init() {
+      super.init()
+      center.delegate = self
     }
     
-    func fetchNotificationSettings() {
-        // 1
-        UNUserNotificationCenter.current().getNotificationSettings { settings in
-            // 2
-            DispatchQueue.main.async {
-                self.settings = settings
-            }
-        }
+    func requestAuthorization() async throws {
+      authorized = try await center.requestAuthorization(options: [.badge, .sound, .alert])
+    }
+
+    @MainActor
+    func refreshNotifications() async {
+        pending = await center.pendingNotificationRequests()
+        delivered = await center.deliveredNotifications()
+        
     }
     
-    // 1
-    func scheduleNotification(shortcut: Shortcut) {
-        // 2
+    func removePendingNotifications(identifiers: [String]) async {
+      center.removePendingNotificationRequests(withIdentifiers: identifiers)
+      await refreshNotifications()
+    }
+
+    func removeDeliveredNotifications(identifiers: [String]) async {
+      center.removeDeliveredNotifications(withIdentifiers: identifiers)
+      await refreshNotifications()
+    }
+    
+    func scheduleNotification(trigger: UNNotificationTrigger, model: CommonFieldsModel) async throws {
+        let title = model.title.trimmingCharacters(in: .whitespacesAndNewlines)
+        
         let content = UNMutableNotificationContent()
-        content.title = shortcut.title
-        content.body = "Gentle reminder for your task!"
-        content.categoryIdentifier = "OrganizerPlusCategory"
-        let taskData = try? JSONEncoder().encode(shortcut)
-        if let taskData = taskData {
-            content.userInfo = ["Task": taskData]
+        content.title = title.isEmpty ? "No Title Provided" : title
+        
+        if model.hasSound {
+            content.sound = UNNotificationSound.default
         }
         
-        // 3
-        var trigger: UNNotificationTrigger?
-        
-        if let date = shortcut.reminder?.date {
-            trigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.day, .month, .year, .hour, .minute], from: date), repeats: shortcut.reminder?.repeats ?? false)
+        if let number = Int(model.badge) {
+            content.badge = NSNumber(value: number)
         }
         
-        // 4
-        if let trigger = trigger {
-            let request = UNNotificationRequest(identifier: shortcut.id.uuidString, content: content, trigger: trigger)
-            // 5
-            UNUserNotificationCenter.current().add(request) { error in
-                if let error = error {
-                    print(error)
-                }
-            }
-        }
+        let identifier = UUID().uuidString
+        let request = UNNotificationRequest(
+            identifier: identifier,
+            content: content,
+            trigger: trigger)
+        
+        try await center.add(request)
+        
     }
-    
-    func removeScheduledNotification(shortcut: Shortcut) {
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [shortcut.id.uuidString])
+
+    func scheduleNotification(date: Date, shortcut: Shortcut) {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.hour, .minute], from: date)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
+        
+        let content = UNMutableNotificationContent()
+        let title = shortcut.title.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        content.title = title
+        content.body = "This is a repeating reminder."
+        let identifier = UUID().uuidString
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+        center.add(request)
     }
-    
-    
+
+}
+
+extension NotificationService: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
+        return [.banner, .badge, .sound]
+    }
+}
+
+
+class CommonFieldsModel: ObservableObject {
+  @Published var title = ""
+  @Published var badge = ""
+  @Published var isRepeating = false
+  @Published var hasSound = false
+
+  func reset() {
+    title = ""
+    badge = ""
+    isRepeating = false
+    hasSound = false
+  }
 }

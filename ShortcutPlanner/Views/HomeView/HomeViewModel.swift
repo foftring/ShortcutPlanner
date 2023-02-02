@@ -13,8 +13,10 @@ class HomeViewModel: ObservableObject {
     @Published var shortcuts: [Shortcut] = []
     @Published var hasImportedShortcuts: Bool = false
     @Published var isFinished: Bool = false
+    @Published var showingAlert = false
     private let sirService = SiriService.shared
     private let dataStore = ShortcutStore.shared
+    private let notificationService = NotificationService.shared
     private let coreDataService = CoreDataService.shared
     private var cancellables = Set<AnyCancellable>()
     
@@ -43,6 +45,15 @@ class HomeViewModel: ObservableObject {
             }
             .store(in: &cancellables)
             
+    }
+    
+    func getNotificationAuthorization() async {
+        try? await notificationService.requestAuthorization()
+        if !notificationService.authorized {
+            DispatchQueue.main.async {
+                self.showingAlert = true
+            }
+        }
     }
     
     func runShortcut(_ shortcut: Shortcut) {
